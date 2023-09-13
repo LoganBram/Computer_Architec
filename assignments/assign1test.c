@@ -22,6 +22,9 @@ int main (int argc, char *argv[]){
         /*checks if current character is a ltter and if previous is a */
         if (((ch >= 'A' && ch <= 'Z') ||(ch >= 'a' && ch <= 'z')) && (pch == ' '|| pch == '\t' || pch == '\n' || pch == '.' || pch == ';' || pch == ':')){
             wc++;
+            /*turn off whitesapce trigger so 'h .h. h' isnt counted as 4 since it adds to wordcount 
+            when trigger is on, previous is punctation and current is space*/
+            whitespacetrigger = 0;
         }
         pch = ch;
     }
