@@ -1,35 +1,26 @@
 #include <stdio.h>
 #include <string.h>
 
-int main (int argc, char *argv[]){
-    char ch, pch = ' ';
-    int lc = 0, wc = 0, cc = 0;
-    int whitespacetrigger = 0;
-    while ((ch = getchar()) != EOF){
-        cc++;
-        if (ch == '\n')
+int main (){
+
+    char current, previous = ' ';
+    int words = 0,  lines = 0, characters = 0;
+    while ((current = getchar()) != EOF){
+        characters++;
+
+        /*checks if current character is non whitespace and previous is whitespace. Previous is set to ' ' on init to account for first word*/
+        if (((current >= 'A' && current <= 'Z') ||(current >= 'a' && current <= 'z') || current == ';' || current == ',' || current == '.' ) && (previous == ' ' || previous == '\t')){
+            words++;
+        }
+
+        if (current == '\n')
         {
-            lc++;
+            lines++;
         }
-        if(ch == ' '){
-            /*add white space trigger, when a space is hit to indicate a letter has not been placed*/
-            whitespacetrigger = 1;
-            /* if another whitespace hit, and the previous character is a punctation it means a case of 'h . h' or 'h .. . h' has occured */
-            if (pch == '.' || pch == ';' || pch == ':'){
-                wc++;
-            }
-        }
-        /*checks if current character is a ltter and if previous is a */
-        if (((ch >= 'A' && ch <= 'Z') ||(ch >= 'a' && ch <= 'z')) && (pch == ' '|| pch == '\t' || pch == '\n' || pch == '.' || pch == ';' || pch == ':')){
-            wc++;
-            /*turn off whitesapce trigger so 'h .h. h' isnt counted as 4 since it adds to wordcount 
-            when trigger is on, previous is punctation and current is space*/
-            whitespacetrigger = 0;
-        }
-        pch = ch;
+        previous = current;
     }
-    printf("number of lines = %d\n", lc);
-    printf("number of word = %d\n", wc);
-    printf("number of character = %d\n", cc);
+    printf("number of word = %d\n", words);
+    printf("number of lines = %d\n", lines);
+    printf("number of character = %d\n", characters);
 
 }
